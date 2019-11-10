@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>手机号和用户名验证</title>
+</head>
+<body>
+    <form>
+        <table>
+            <tr>
+                <td>用户名：</td>
+                <td>
+                    <input type="text" name="userName" id="userName" />
+                </td>
+                <td>
+                    <span id="span"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>手机号码：</td>
+                <td>
+                    <input type="text" name="tel" id="tel" />
+                </td>
+                <td>
+                    <span id="tel_result"></span>
+                </td>
+            </tr>
+        </table>
+
+    </form>
+
+    <script>
+
+        window.onload = function () {
+            var userNmae = this.document.getElementById("userName");
+            var tel = document.getElementById("tel");
+
+            userNmae.onblur = function () {
+                var userNameValue = userNmae.value;
+                //console.log(userNameValue)
+
+                var xhr = new XMLHttpRequest();
+                xhr.open("get", "./admin/userName.php?userName=" + userNameValue, true);
+                xhr.send(null);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+                        if (xhr.status == 200) {
+                            var rusult = xhr.responseText
+                            //console.log(rusult)
+                            if (rusult == "OK") {
+                                document.getElementById("span").innerText = "用户名可以使用";
+                            } else {
+                                document.getElementById("span").innerText = "用户名已注册";
+                            }
+                        }
+                    }
+                }
+            }
+
+            tel.onblur = function () {
+                var telValue = tel.value;
+                //console.log(telValue)
+
+                var xhr = new XMLHttpRequest();
+
+                var params = "tel=" + telValue;
+
+                xhr.open("post", "./admin/tel.php", true);
+
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                xhr.send(params);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+                        if (xhr.status == 200) {
+
+                            var result = xhr.responseText;                          
+
+                            result = JSON.parse(result);
+                            //console.log(result)
+
+                            if (result.status == 0) {
+                                document.getElementById("tel_result").innerText = result.msg.tips + "----" + result.msg.from;
+
+                            } else if (result.status == 1) {
+                                document.getElementById("tel_result").innerText = result.msg;
+
+                            }                           
+                          
+                        }
+                    }
+
+                }
+
+
+
+
+
+
+
+            }
+
+
+       
+
+
+        }
+
+
+    </script>
+
+
+    
+
+
+</body>
+</html>

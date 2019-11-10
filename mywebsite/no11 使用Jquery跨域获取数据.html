@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>jQuery跨域</title>
+</head>
+<body>
+    <input type="text" id="key" placeholder="请输入关键字" />
+    <input type="button" value="确认" id="btn" />
+
+    <ul id="ul">
+        <li>1111</li>
+        <li>1111</li>
+        <li>1111</li>
+    </ul>
+
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <script>
+        window.onload = function () {
+            this.document.getElementById("btn").onclick = function () {
+                var keyValue = document.getElementById("key").value;
+                //console.log(keyValue);
+                $.ajax({
+                    url: "http://suggestion.baidu.com/su",
+                    data: { wd: keyValue },
+                    dataType: "jsonp",
+                    jsonp:"cb",
+                    success: function (data) {
+                        console.log(data)
+                    }
+                })
+            }
+        }
+    </script>
+
+</body>
+</html>

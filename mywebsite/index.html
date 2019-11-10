@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>首页</title>
+</head>
+<body>
+    <form action="" method="">
+        <table>
+            <tr>
+                <td>用户名</td>
+                <td><input type="text" name="userName" id="userName" /></td>
+                <td><input type="button" value="点击验证" id="btn"/></td>
+                <td><span id="span"></span></td>
+            </tr>            
+        </table>
+    </form>
+
+    <script>
+        window.onload = function () {
+            var btn = document.getElementById("btn");
+            btn.onclick = function () {
+                var username = document.getElementById("userName").value;
+                console.log(username);
+
+                //第一步：创建 XMLHttpRequest  对象
+
+                var xhr = null;
+
+                if (window.XMLHttpRequest) {
+
+                    xhr = new XMLHttpRequest();
+
+                } else {
+
+                    xhr = new ActiveXObject("Microsoft.XMLHTTP");
+
+                }
+
+                //准备发送
+
+                xhr.open("get", "register.php?userName=" + username, true);
+
+                //执行发送
+
+                xhr.send(null);
+
+                //通过回调函数 获取数据
+
+                xhr.onreadystatechange = function () {
+
+                    if (xhr.readyState == 4) {
+
+                        if (xhr.status == 200) {
+
+                            var result = xhr.responseText;
+
+                            //console.log(result);
+
+                            document.getElementById("span").innerText = result;
+                        }
+
+                    }                    
+                }
+            }
+        }
+
+
+
+    </script>
+
+   
+
+
+
+</body>
+</html>

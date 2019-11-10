@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>no5 使用Jquery获取Ajax数据</title>
+</head>
+<body>
+    <form>
+        <table>
+            <tr>
+                <td>用户名：</td>
+                <td>
+                    <input type="text" name="userName" id="userName" />
+                </td>
+                <td>
+                    <span id="span"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>手机号码：</td>
+                <td>
+                    <input type="text" name="tel" id="tel" />
+                </td>
+                <td>
+                    <span id="tel_result"></span>
+                </td>
+            </tr>
+        </table>
+
+    </form><form>
+        <table>
+            <tr>
+                <td>用户名：</td>
+                <td>
+                    <input type="text" name="userName" id="userName" />
+                </td>
+                <td>
+                    <span id="span"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>手机号码：</td>
+                <td>
+                    <input type="text" name="tel" id="tel" />
+                </td>
+                <td>
+                    <span id="tel_result"></span>
+                </td>
+            </tr>
+        </table>
+
+    </form>
+
+
+
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <script>
+
+        window.onload = function () {
+            var userNmae = this.document.getElementById("userName");
+            var tel = document.getElementById("tel");
+
+            userNmae.onblur = function () {
+                var userNameValue = userNmae.value;
+                //console.log(userNameValue)
+
+                var type = "get";
+                var url = "http://192.16.21.105:8081/admin/userName.php";
+                var params = "userName=" + userNameValue;
+
+
+                $.get(url + "?" + params, function (result) {
+                    if (result == "OK") {
+                            document.getElementById("span").innerText = "用户名可以使用";
+                        } else {
+                            document.getElementById("span").innerText = "用户名已注册";
+                        }
+                })
+
+
+                //$.ajax({
+                //    url: url,
+                //    type: type,
+                //    data: { userName: userNameValue },
+                //    success: function (result) {
+                //        if (result == "OK") {
+                //            document.getElementById("span").innerText = "用户名可以使用";
+                //        } else {
+                //            document.getElementById("span").innerText = "用户名已注册";
+                //        }
+                //    }
+                //})
+
+
+
+
+
+
+            }
+
+            tel.onblur = function () {
+                var telValue = tel.value;
+                //console.log(telValue)
+
+                var type = "post";
+                var url = "./admin/tel.php";
+                var params = "tel=" + telValue;
+                var dataType = "json";
+
+
+
+                $.post(url, { tel: telValue }, function (result) {
+
+                    result = JSON.parse(result);
+
+                    //console.log(result)
+
+                    if (result.status == 0) {
+                        document.getElementById("tel_result").innerText = result.msg.tips + "----" + result.msg.from;
+
+                    } else if (result.status == 1) {
+                        document.getElementById("tel_result").innerText = result.msg;
+
+                    }
+                   
+                })
+
+
+               
+            }
+        }
+
+
+    </script>
+
+
+</body>
+</html>

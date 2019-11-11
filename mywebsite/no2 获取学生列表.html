@@ -1,72 +1,80 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <title>学生列表</title>
-    <style>
-        div{width :600px;height :auto ;margin :0 auto ;}
-        div table{width :100%;}
-        div table tr{line-height:30px;}
-        div table tr td{border-bottom :1px solid #dedede;}
+	<head>
+		<meta charset="utf-8" />
+		<title>学生列表</title>
+		<style>
+			div {
+				width: 600px;
+				height: auto;
+				margin: 0 auto;
+			}
 
-    </style>
-</head>
-<body>
+			div table {
+				width: 100%;
+			}
 
-    <div>
-        <table id="table">
-            <tr>
-                <td>姓名</td>
-                <td>年龄</td>
-                <td>性别</td>
-            </tr>
-            
-        </table>
-    </div>
+			div table tr {
+				line-height: 30px;
+			}
 
-    <script>
-        window.onload = function () {
+			div table tr td {
+				border-bottom: 1px solid #dedede;
+			}
+		</style>
+	</head>
+	<body>
 
-            var xhr = new XMLHttpRequest();
+		<div>
+			<table id="table">
+				<tr>
+					<td>姓名</td>
+					<td>年龄</td>
+					<td>性别</td>
+				</tr>
 
-            xhr.open("get", "./admin/student.php", true);
+			</table>
+		</div>
 
-            xhr.send(null);
+		<script>
+			window.onload = function() {
 
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4) {
-                    if (xhr.status == 200) {
+				var xhr = new XMLHttpRequest();
 
-                        var result = xhr.responseXML;
-                        //console.log(result.getElementsByTagName("students")[0].getElementsByTagName("student"))
+				xhr.open("get", "./admin/student.php", true);
 
-                        var students = result.getElementsByTagName("students")[0].getElementsByTagName("student");
+				xhr.send(null);
 
-                        var html = document.getElementById("table").innerHTML;
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState == 4) {
+						if (xhr.status == 200) {
 
-                        for (var i = 0; i < students.length; i++) {
-                            var student = students[i];
+							var result = xhr.responseXML;
+							console.log(result.getElementsByTagName("students")[0].getElementsByTagName("student"))
 
-                            var nameValue = student.getElementsByTagName("name")[0].textContent;
-                            var ageValue = student.getElementsByTagName("age")[0].textContent;
-                            var sexVulue = student.getElementsByTagName("sex")[0].textContent;
+							var students = result.getElementsByTagName("students")[0].getElementsByTagName("student");
 
-                            var newhtml = "<tr><td>" + nameValue + "</td><td>" + ageValue + "</td><td>" + sexVulue+"</td></tr>"
+							var html = document.getElementById("table").innerHTML;
+							
+							html = "";
 
-                            html = html + newhtml;
-                        }
-                        document.getElementById("table").innerHTML = html;
-                    }
-                }
-            }
+							for (var i = 0; i < students.length; i++) {
+								var student = students[i];
 
+								var nameValue = student.getElementsByTagName("name")[0].textContent;
+								var ageValue = student.getElementsByTagName("age")[0].textContent;
+								var sexVulue = student.getElementsByTagName("sex")[0].textContent;
 
+								var newhtml = "<tr><td>" + nameValue + "</td><td>" + ageValue + "</td><td>" + sexVulue + "</td></tr>"
 
-        }
-
-
-
-    </script>
-
-</body>
+								// html = "";
+								html = html + newhtml;
+							}
+							document.getElementById("table").innerHTML = html;
+						}
+					}
+				}
+			}
+		</script>
+	</body>
 </html>

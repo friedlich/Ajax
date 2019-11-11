@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -87,7 +87,7 @@
                 var dataType = "json";
 
                 myAjax(type, url, params, dataType, function (result) {
-                    //console.log(result)
+                    console.log(result)
 
                     if (result.status == 0) {
                         document.getElementById("tel_result").innerText = result.msg.tips + "----" + result.msg.from;

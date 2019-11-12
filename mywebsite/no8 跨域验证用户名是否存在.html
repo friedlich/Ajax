@@ -1,61 +1,56 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <title>跨域</title>   
+	<head>
+		<meta charset="utf-8" />
+		<title>跨域</title>
 
-</head>
-<body>
+	</head>
+	<body>
 
-    <form>
-        <table>
-            <tr>
-                <td>用户名：</td>
-                <td>
-                    <input type="text" name="userName" id="userName" />
-                </td>
-                <td>
-                    <span id="span"></span>
-                </td>
-            </tr>
-        </table>
-    </form>
-
-
-    <!--<script>        
-        function foo1(data) {
-            if (data == "OK") {
-                document.getElementById("span").innerText = "用户名可以使用";
-            } else {
-                document.getElementById("span").innerText = "用户名已注册";
-            }
-        }
-    </script>-->
-
-    <script>
-
-        window.onload = function () {
-            var userNmae = this.document.getElementById("userName");
-            userNmae.onblur = function () {
-                var userNameValue = userNmae.value;
-                var script = document.createElement("script");
-                script.src = "http://192.16.21.105:8081/admin/userName.php?userName=" + userNameValue + "&cb=foo";                 
-                var head = document.getElementsByTagName("head")[0];
-                head.appendChild(script);  
-
-                window["foo"] = function (data) {
-                    if (data == "OK") {
-                        document.getElementById("span").innerText = "用户名可以使用";
-                    } else {
-                        document.getElementById("span").innerText = "用户名已注册";
-                    }
-                }
-            }
-        }
+		<form>
+			<table>
+				<tr>
+					<td>用户名：</td>
+					<td>
+						<input type="text" name="userName" id="userName" />
+					</td>
+					<td>
+						<span id="span"></span>
+					</td>
+				</tr>
+			</table>
+		</form>
 
 
-    </script>
+<!-- 		<script>
+			function foo(data) {
+				if (data == "OK") {
+					document.getElementById("span").innerText = "用户名可以使用";
+				} else {
+					document.getElementById("span").innerText = "用户名已注册";
+				}
+			}
+		</script> -->
 
+		<script>
+			window.onload = function() {
+				var userNmae = this.document.getElementById("userName");
+				userNmae.onblur = function() {
+					var userNameValue = userNmae.value;
+					var script = document.createElement("script");
+					script.src = "http://192.168.232.1:8081/admin/userName.php?userName=" + userNameValue + "&cb=foo";
+					var head = document.getElementsByTagName("head")[0];
+					head.appendChild(script);
 
-</body>
+					window["foo"] = function (data) {
+					    if (data == "OK") {
+					        document.getElementById("span").innerText = "用户名可以使用";
+					    } else {
+					        document.getElementById("span").innerText = "用户名已注册";
+					    }
+					}
+				}
+			}
+		</script>
+	</body>
 </html>

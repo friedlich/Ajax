@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -18,8 +18,8 @@
         window.onload = function () {
             this.document.getElementById("btn").onclick = function () {
                 var keyValue = document.getElementById("key").value;
-                //console.log(keyValue);
-
+                console.log(keyValue);
+ 
                 var script = document.createElement("script");
                 script.src = "http://suggestion.baidu.com/su?wd=" + keyValue + "&cb=qqq";
                 var head = document.getElementsByTagName("head")[0];

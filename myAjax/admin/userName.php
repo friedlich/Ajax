@@ -1,4 +1,4 @@
-﻿<?php  
+<?php  
 
 $cbName=$_GET["cb"];
 $userName = $_GET["userName"];
